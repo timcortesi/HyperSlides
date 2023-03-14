@@ -53,6 +53,16 @@ body {
   border-radius:10px;
 }
 
+.hs-slide-id {
+    position: relative;
+    top: -28px;
+    left: 15px;
+    background-color: lightblue;
+    display: inline-block;
+    padding: 2px;
+    border-radius: 5px;
+}
+
 #hs-active-slide {
   width:100%;
   aspect-ratio: auto 16 / 10;

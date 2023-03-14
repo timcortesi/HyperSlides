@@ -46,16 +46,16 @@
         <div class="btn btn-primary" id="hs-add-rect-btn">Add Rectangle</div>
     </div>
     <div id="hs-sidebar">
-        <img class="hs-slide" id="slide-1" data-slide="1"></img>
-        <img class="hs-slide" id="slide-2" data-slide="2"></img>
-        <img class="hs-slide" id="slide-3" data-slide="3"></img>
-        <img class="hs-slide" id="slide-4" data-slide="4"></img>
-        <img class="hs-slide" id="slide-5" data-slide="5"></img>
+        <img class="hs-slide" id="slide_1" data-slide="1"></img>
+        <img class="hs-slide" id="slide_2" data-slide="2"></img>
+        <img class="hs-slide" id="slide_3" data-slide="3"></img>
+        <img class="hs-slide" id="slide_4" data-slide="4"></img>
+        <img class="hs-slide" id="slide_5" data-slide="5"></img>
     </div>
     <div id="hs-main">
         <div id="hs-active-slide" style="position:relative;">
-            <div class="draggable" id="box" style="position:absolute;top:10%;left:10%;width:10%;height:10%;background-color:purple;border-style:solid;border-color:black;"></div>
-            <div class="draggable" id="box2" style="position:absolute;top:30%;left:10%;width:10%;height:10%;background-color:yellow;border-style:solid;border-color:black;"></div>
+            <div class="draggable" id="elem_1" data-elem="1" style="position:absolute;top:10%;left:10%;width:10%;height:10%;background-color:purple;border-style:solid;border-color:black;"></div>
+            <div class="draggable" id="elem_2" data-elem="2" style="position:absolute;top:30%;left:10%;width:10%;height:10%;background-color:yellow;border-style:solid;border-color:black;"></div>
         </div>
     </div>
     <div id="hs-right-toolbar">
@@ -63,12 +63,24 @@
 
     <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
     <script src="/assets/js/vendor/dom-to-image-more.js"></script>
+    <script src='/assets/js/vendor/jquery.min.js'></script>
+    <script src="/assets/js/vendor/bootstrap.min.js"></script>
+    <script src="/assets/js/vendor/lodash.min.js"></script>
+    <script>_.findWhere = _.find; _.where = _.filter;_.pluck = _.map;_.contains = _.includes;</script>
+    <script src='/assets/js/vendor/toastr.min.js'></script>
+    <script src='/assets/js/vendor/gform_bootstrap.js'></script>
+    <script src='/assets/js/vendor/GrapheneDataGrid.min.js'></script>
+    <script src='/assets/js/vendor/moment.js'></script>
+    <script src='/assets/js/vendor/bootstrap-datetimepicker.min.js'></script>
+    <script src='/assets/js/vendor/sortable.js'></script>
+    <script src='/assets/js/vendor/ractive.min.js'></script>
+
     <script>
     window.slides = [
         {
             id: 1,
-            html: `<div class="draggable" id="box" style="position:absolute;top:10%;left:10%;width:10%;height:10%;background-color:purple;border-style:solid;border-color:black;"></div>
-                    <div class="draggable" id="box2" style="position:absolute;top:30%;left:10%;width:10%;height:10%;background-color:yellow;border-style:solid;border-color:black;"></div>`
+            html: `<div class="draggable" id="elem_1" style="position:absolute;top:10%;left:10%;width:10%;height:10%;background-color:purple;border-style:solid;border-color:black;"></div>
+                    <div class="draggable" id="elem_2" style="position:absolute;top:30%;left:10%;width:10%;height:10%;background-color:yellow;border-style:solid;border-color:black;"></div>`
         },
         {id: 2,html: ``},
         {id: 3,html: ``},
@@ -76,7 +88,10 @@
         {id: 5,html: ``},
     ];
 
+    let slide_id_count = 1;
+    let slide_element_id_count = 3;
     let current_slide = 1;
+    let current_slide_element = 1;
     const position = { x: 0, y: 0 }
     let previous_style = {};
     let slide_width = document.getElementById("hs-active-slide").clientWidth;
@@ -103,7 +118,6 @@
                 let height = document.getElementById("hs-active-slide").clientHeight;
                 position.x += (event.dx / width) * 100
                 position.y += (event.dy / height) * 100
-                console.log(position);
                 event.target.style.left = position.x+'%';
                 event.target.style.top = position.y+'%';
             },
@@ -153,30 +167,43 @@
     let add_square_btn_elem = document.getElementById('hs-add-rect-btn')
     add_square_btn_elem.addEventListener('click', function(elem) {
         let newrect = document.createElement('div');
-        newrect.id = "newrect";
+        slide_element_id_count++;
+        newrect.id = "elem_"+slide_element_id_count;
         newrect.classList.add("draggable");
         newrect.style.cssText = 'position:absolute;top:0%;left:0%;width:10%;height:10%;color:purple;border-style:solid;border-color:black;';
         document.getElementById('hs-active-slide').appendChild(newrect);
     })
-    var slide_elements = document.getElementsByClassName("hs-slide");
-    for (var i = 0; i < slide_elements.length; i++) {
-        slide_elements[i].addEventListener('click', function(elem) {
+    var slide_previews = document.getElementsByClassName("hs-slide");
+    for (var i = 0; i < slide_previews.length; i++) {
+        slide_previews[i].addEventListener('click', function(elem) {
             current_slide = elem.target.dataset.slide;
             document.getElementById('hs-active-slide').innerHTML = window.slides[current_slide-1].html;
         });
     }
 
+    document.addEventListener("click", function (e) {
+        if (e.target instanceof HTMLElement) {
+            if (e.target.classList.contains('draggable')) {
+                current_slide_element = e.target.id;                
+                var data = _.mapValues(_.keyBy(_.map(e.target.style.cssText.split(';'),function(elem) {
+                    let parts = elem.split(':');
+                    return {key:[(parts[0]+'').trim()],value:(parts[1]+'').trim()};
+                }),'key'),'value');
+                elem_form.set(null);
+                elem_form.set({style:data,info:{elem_id:e.target.id}});
+            }
+        }
+    })
+
+
     document.onpaste = function (event) {
         var items = (event.clipboardData || event.originalEvent.clipboardData).items;
-        console.log(JSON.stringify(items)); // might give you mime types
         for (var index in items) {
             var item = items[index];
             if (item.kind === 'file') {
                 var blob = item.getAsFile();
                 var reader = new FileReader();
                 reader.onload = function (event) {
-                    console.log(event.target.result); // data url!
-
                     var newimg = new Image();
                     newimg.onload = function(){
                         let imgwidth = 0;
@@ -198,8 +225,8 @@
                                 imgheight = (newimg.height / slide_height) * 100;
                             }
                         }
-
-                        newimg.id = "newimg";
+                        slide_element_id_count++;
+                        newimg.id = "elem_"+slide_element_id_count;
                         newimg.classList.add("draggable");
                         newimg.style.cssText = 'position:absolute;top:0%;left:0%;width:'+imgwidth+'%;height:'+imgheight+'%;color:purple;border-style:solid;border-color:black;';
                         document.getElementById('hs-active-slide').appendChild(newimg);
@@ -220,7 +247,7 @@
             .toPng(node)
             .then(function (dataUrl) {
                 var img = new Image();
-                document.getElementById('slide-'+current_slide).src = dataUrl;
+                document.getElementById('slide_'+current_slide).src = dataUrl;
             })
             .catch(function (error) {
                 console.error('oops, something went wrong!', error);
@@ -229,18 +256,43 @@
 
     document.getElementById('hs-active-slide').innerHTML = window.slides[0].html;
     update_preview();
+
+    window.elem_form = new gform({
+        data: {},
+        actions: [{
+            type: 'button',
+			action: "delete",
+			label: "Delete Element",
+			modifiers: "btn btn-danger"
+		}],
+        fields: [{
+			type: "fieldset",
+			label: "Info",
+			name: "info",
+			fields: [
+                {label:'Element ID', name:'elem_id', edit:false}, 
+            ]
+        },{
+			type: "fieldset",
+			label: "Style",
+			name: "style",
+			fields: [
+                {label:'Background Color', name:'background-color'}, 
+                {label:'Text Color', name:'color'},
+                {label:'Border Radius', name:'border-radius'},
+                {label:'Border Width', name:'border-width'},
+                {label:'Border Color', name:'border-color'},
+            ]
+        }]
+    }, '#hs-right-toolbar').on('change',function(event) {
+        for (const [key, value] of Object.entries(event.form.get().style)) {
+            let element = document.getElementById(current_slide_element);
+            element.style[key] = value;
+        }
+    }).on('delete',function(event) {
+        document.getElementById(current_slide_element).outerHTML = "";
+    });
     </script>
 
-    <script src='/assets/js/vendor/jquery.min.js'></script>
-    <script src="/assets/js/vendor/bootstrap.min.js"></script>
-    <script src="/assets/js/vendor/lodash.min.js"></script>
-    <script>_.findWhere = _.find; _.where = _.filter;_.pluck = _.map;_.contains = _.includes;</script>
-    <script src='/assets/js/vendor/toastr.min.js'></script>
-    <script src='/assets/js/vendor/gform_bootstrap.js'></script>
-    <script src='/assets/js/vendor/GrapheneDataGrid.min.js'></script>
-    <script src='/assets/js/vendor/moment.js'></script>
-    <script src='/assets/js/vendor/bootstrap-datetimepicker.min.js'></script>
-    <script src='/assets/js/vendor/sortable.js'></script>
-    <script src='/assets/js/vendor/ractive.min.js'></script>
   </body>
 </html>
