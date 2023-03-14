@@ -48,13 +48,9 @@
     <div id="hs-sidebar">
         <img class="hs-slide" id="slide-1" data-slide="1"></img>
         <img class="hs-slide" id="slide-2" data-slide="2"></img>
-        <img class="hs-slide"></img>
-        <img class="hs-slide"></img>
-        <img class="hs-slide"></img>
-        <img class="hs-slide"></img>
-        <img class="hs-slide"></img>
-        <img class="hs-slide"></img>
-        <img class="hs-slide"></img>
+        <img class="hs-slide" id="slide-3" data-slide="3"></img>
+        <img class="hs-slide" id="slide-4" data-slide="4"></img>
+        <img class="hs-slide" id="slide-5" data-slide="5"></img>
     </div>
     <div id="hs-main">
         <div id="hs-active-slide" style="position:relative;">
@@ -74,10 +70,10 @@
             html: `<div class="draggable" id="box" style="position:absolute;top:10%;left:10%;width:10%;height:10%;background-color:purple;border-style:solid;border-color:black;"></div>
                     <div class="draggable" id="box2" style="position:absolute;top:30%;left:10%;width:10%;height:10%;background-color:yellow;border-style:solid;border-color:black;"></div>`
         },
-        {
-            id: 2,
-            html: ``
-        }
+        {id: 2,html: ``},
+        {id: 3,html: ``},
+        {id: 4,html: ``},
+        {id: 5,html: ``},
     ];
 
     let current_slide = 1;
