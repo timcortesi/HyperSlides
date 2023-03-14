@@ -130,6 +130,7 @@
         }
     }).resizable({
         edges: { top: true, left: true, bottom: true, right: true },
+        invert: 'reposition',
         modifiers: [
             interact.modifiers.restrictRect({
                 restriction: 'parent',
