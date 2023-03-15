@@ -283,7 +283,7 @@
             element.style[key] = value;
         }
     }).on('delete',function(event) {
-        document.getElementById(current_slide_element).outerHTML = "";
+        document.getElementById('elem_'+current_slide_element).outerHTML = "";
     });
 
     window.slide_form = new gform({
