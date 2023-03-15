@@ -7,34 +7,63 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0" />
-    <link rel="icon"  type="image/png" href="/assets/icons/fontawesome/gray/32/user-circle.png">
+    <link rel="icon"  type="image/png" href="/assets/icons/fontawesome/gray/32/slideshare.png">
     <title>HyperSlides</title>
-
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
-
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <!--<link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">-->
-    <!-- Custom styles for this template -->
     <link href="/assets/css/HyperSlides.css" rel="stylesheet">
     <link href="/assets/css/toastr.min.css" rel="stylesheet">
     <link href="/assets/css/font-awesome.min.css" rel="stylesheet">
     <link href="/assets/css/colorpicker.min.css" rel="stylesheet">
-
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <!--<script src="../../assets/js/ie-emulation-modes-warning.js"></script>-->
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
   </head>
   <body>
 
-    <div id="hs-menubar">
-        <div class="btn btn-primary" id="hs-add-rect-btn">Add Rectangle</div>
-        <div class="btn btn-primary" id="hs-add-slide-btn">Add Slide</div>
+    <div id="hs-menubar-actions" style="position:absolute;width:100%;top:10px;padding:0px 10px;margin:0px;"> 
+        <div class="btn-group">
+            <div class="btn-group">
+                <div class="btn-sm dropdown-toggle hs-menubar-action" data-toggle="dropdown">
+                    File
+                </div>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Save</a></li>
+                </ul>
+            </div>
+            <div class="btn-group">
+                <div class="btn-sm dropdown-toggle hs-menubar-action" data-toggle="dropdown">
+                    Edit
+                </div>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Copy</a></li>
+                    <li><a href="#">Paste</a></li>
+                </ul>
+            </div>
+            <div class="btn-group">
+                <div class="btn-sm dropdown-toggle hs-menubar-action" data-toggle="dropdown">
+                    View
+                </div>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Slideshow</a></li>
+                </ul>
+            </div>
+            <div class="btn-group">
+                <div class="btn-sm dropdown-toggle hs-menubar-action" data-toggle="dropdown">
+                    Insert
+                </div>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Insert Rectangle</a></li>
+                    <li><a href="#">Insert Oval</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
+
+    <div id="hs-menubar-btns" style="padding:6px 16px;background-color:rgb(238,242,249);border-radius:30px;margin:48px 10px;"> 
+        <div id="hs-add-slide-btn" class="btn btn-default"><i id="hs-add-slide-btn" class="fa fa-plus"></i></div>
+        <div class="btn-group" role="group">
+            <div id="hs-add-rect-btn" class="btn btn-default"><i id="hs-add-rect-btn" class="fa fa-square-o"></i></div>
+            <div id="hs-add-oval-btn" class="btn btn-default"><i id="hs-add-oval-btn" class="fa fa-circle-thin"></i></div>
+        </div>
+    </div>
+
     <div id="hs-sidebar">
         <img class="hs-slide" id="slide_1"></img>
     </div>
@@ -92,10 +121,6 @@
             start (event) {
                 position.x = Number(event.target.style.left.replace('%',''));
                 position.y = Number(event.target.style.top.replace('%',''));
-                previous_style['border-style'] = event.target.style['border-style'];
-                previous_style['border-width'] = event.target.style['border-width'];
-                event.target.style['border-style'] = 'dashed';
-                event.target.style['border-width'] = '5px';
             },
             move (event) {
                 let width = document.getElementById("hs-active-slide").clientWidth;
@@ -106,8 +131,6 @@
                 event.target.style.top = position.y+'%';
             },
             end (event) {
-                event.target.style['border-style'] = previous_style['border-style'];
-                event.target.style['border-width'] = previous_style['border-width'];
                 update_preview();
                 window.slides[current_slide].html = document.getElementById('hs-active-slide').innerHTML;
             }
@@ -125,10 +148,6 @@
             start (event) {
                 position.x = Number(event.target.style.left.replace('%',''));
                 position.y = Number(event.target.style.top.replace('%',''));
-                previous_style['border-style'] = event.target.style['border-style'];
-                previous_style['border-width'] = event.target.style['border-width'];
-                event.target.style['border-style'] = 'dashed';
-                event.target.style['border-width'] = '5px';
             },
             move: function (event) {
                 let width = document.getElementById("hs-active-slide").clientWidth;
@@ -141,8 +160,6 @@
                 event.target.style.height = (event.rect.height / height) * 100+'%';
             },
             end (event) {
-                event.target.style['border-style'] = previous_style['border-style'];
-                event.target.style['border-width'] = previous_style['border-width'];
                 update_preview();
                 window.slides[current_slide].html = document.getElementById('hs-active-slide').innerHTML;
             }
@@ -156,7 +173,14 @@
                 slide_element_id_count++;
                 newrect.id = "elem_"+slide_element_id_count;
                 newrect.classList.add("draggable");
-                newrect.style.cssText = 'position:absolute;top:0%;left:0%;width:10%;height:10%;color:purple;border-style:solid;border-color:black;';
+                newrect.style.cssText = 'position:absolute;top:3%;left:3%;width:12.5%;height:20%;color:purple;border-style:solid;border-color:black;';
+                document.getElementById('hs-active-slide').appendChild(newrect);
+            } else if (e.target.id == 'hs-add-oval-btn') {
+                let newrect = document.createElement('div');
+                slide_element_id_count++;
+                newrect.id = "elem_"+slide_element_id_count;
+                newrect.classList.add("draggable");
+                newrect.style.cssText = 'position:absolute;top:3%;left:3%;width:12.5%;height:20%;color:purple;border-style:solid;border-color:black;border-radius:100%';
                 document.getElementById('hs-active-slide').appendChild(newrect);
             } else if (e.target.id == 'hs-add-slide-btn') {
                 let newslide = document.createElement('img');
@@ -168,6 +192,7 @@
                 current_slide_element.parentNode.insertBefore(newslide, current_slide_element.nextSibling);
                 current_slide = slide_count;
             } else if (e.target.classList.contains('draggable')) {
+                e.target.tabIndex = -1; e.target.focus();
                 current_slide_element = e.target.id.split('_')[1];  
                 var data = _.mapValues(_.keyBy(_.map(e.target.style.cssText.split(';'),function(elem) {
                     let parts = elem.split(':');
@@ -178,6 +203,7 @@
                 elem_form.set(null);
                 elem_form.set({style:data,info:{elem_id:current_slide_element}});
             } else if (e.target.classList.contains('hs-slide')) {
+                e.target.tabIndex = -1; e.target.focus();
                 current_slide = e.target.id.split('_')[1];
                 document.getElementById('hs-active-slide').innerHTML = window.slides[current_slide].html;
                 document.getElementById('hs-slide-form').style.display = 'block'
@@ -187,7 +213,6 @@
             }
         }
     })
-
 
     document.onpaste = function (event) {
         var items = (event.clipboardData || event.originalEvent.clipboardData).items;
@@ -275,7 +300,11 @@
                 {label:'Border Radius', name:'border-radius'},
                 {label:'Border Width', name:'border-width'},
                 {label:'Border Color', name:'border-color', type:'color'},
-                {label:"Text Alignment", name:"text-align", type: "custom_radio", options: ['<i class="fa fa-align-left"></i>', '<i class="fa fa-align-center"></i>', '<i class="fa fa-align-right"></i>']},
+                {label:"Text Alignment", name:"text-align", type: "custom_radio", options: [
+                    {label:'Left',value:'left'},
+                    {label:'Center',value:'center'},
+                    {label:'Right',value:'right'}
+                ]},
             ]
         }]
     }, '#hs-elem-form').on('change',function(event) {
@@ -311,6 +340,5 @@
     });
 
     </script>
-
   </body>
 </html>
