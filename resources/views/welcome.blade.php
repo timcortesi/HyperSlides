@@ -10,19 +10,7 @@
     <link rel="icon"  type="image/png" href="/assets/icons/fontawesome/gray/32/user-circle.png">
     <title>HyperSlide</title>
 
-    <!-- Custom Light / Dark Mode CSS -->
-    <script>
-      if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all') {
-        document.documentElement.style.display = 'none';
-        document.head.insertAdjacentHTML(
-          'beforeend',
-          '<link rel="stylesheet" href="/light.css" onload="document.documentElement.style.display = \'\'">',
-        );
-      }
-    </script>
-    <link rel="stylesheet" href="/assets/css/bootstrap.darkly.min.css" media="(prefers-color-scheme: dark)" />
-    <link rel="stylesheet" href="/assets/css/bootstrap.min.css" media="(prefers-color-scheme: light)" />
-    <!-- AFTER -->
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <!--<link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">-->
@@ -30,6 +18,7 @@
     <link href="/assets/css/HyperSlide.css" rel="stylesheet">
     <link href="/assets/css/toastr.min.css" rel="stylesheet">
     <link href="/assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/assets/css/colorpicker.min.css" rel="stylesheet">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -65,6 +54,7 @@
     <script src="/assets/js/vendor/dom-to-image-more.js"></script>
     <script src='/assets/js/vendor/jquery.min.js'></script>
     <script src="/assets/js/vendor/bootstrap.min.js"></script>
+    <script src='/assets/js/vendor/colorpicker.min.js'></script>
     <script src="/assets/js/vendor/lodash.min.js"></script>
     <script>_.findWhere = _.find; _.where = _.filter;_.pluck = _.map;_.contains = _.includes;</script>
     <script src='/assets/js/vendor/toastr.min.js'></script>
@@ -278,11 +268,11 @@
 			label: "Style",
 			name: "style",
 			fields: [
-                {label:'Background Color', name:'background-color'}, 
-                {label:'Text Color', name:'color'},
+                {label:'Background Color', name:'background-color', type:'color'}, 
+                {label:'Text Color', name:'color', type:'color'},
                 {label:'Border Radius', name:'border-radius'},
                 {label:'Border Width', name:'border-width'},
-                {label:'Border Color', name:'border-color'},
+                {label:'Border Color', name:'border-color', type:'color'},
             ]
         }]
     }, '#hs-right-toolbar').on('change',function(event) {
