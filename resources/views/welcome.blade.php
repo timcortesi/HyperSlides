@@ -275,6 +275,7 @@
                 {label:'Border Radius', name:'border-radius'},
                 {label:'Border Width', name:'border-width'},
                 {label:'Border Color', name:'border-color', type:'color'},
+                {label:"Text Alignment", name:"text-align", type: "custom_radio", options: ['<i class="fa fa-align-left"></i>', '<i class="fa fa-align-center"></i>', '<i class="fa fa-align-right"></i>']},
             ]
         }]
     }, '#hs-elem-form').on('change',function(event) {
