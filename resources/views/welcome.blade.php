@@ -33,22 +33,20 @@
 
     <div id="hs-menubar">
         <div class="btn btn-primary" id="hs-add-rect-btn">Add Rectangle</div>
+        <div class="btn btn-primary" id="hs-add-slide-btn">Add Slide</div>
     </div>
     <div id="hs-sidebar">
-        <img class="hs-slide" id="slide_1" data-slide="1"></img>
-        <img class="hs-slide" id="slide_2" data-slide="2"></img>
-        <img class="hs-slide" id="slide_3" data-slide="3"></img>
-        <img class="hs-slide" id="slide_4" data-slide="4"></img>
-        <img class="hs-slide" id="slide_5" data-slide="5"></img>
+        <img class="hs-slide" id="slide_1"></img>
     </div>
     <div id="hs-main">
         <div id="hs-active-slide" style="position:relative;">
-            <div class="draggable" id="elem_1" data-elem="1" style="position:absolute;top:10%;left:10%;width:10%;height:10%;background-color:purple;border-style:solid;border-color:black;"></div>
-            <div class="draggable" id="elem_2" data-elem="2" style="position:absolute;top:30%;left:10%;width:10%;height:10%;background-color:yellow;border-style:solid;border-color:black;"></div>
+            <div class="draggable" id="elem_1" style="position:absolute;top:10%;left:10%;width:10%;height:10%;background-color:purple;border-style:solid;border-color:black;"></div>
+            <div class="draggable" id="elem_2" style="position:absolute;top:30%;left:10%;width:10%;height:10%;background-color:yellow;border-style:solid;border-color:black;"></div>
         </div>
     </div>
     <div id="hs-right-toolbar">
-        <div id="hs-elem-form" style="background-color:white;"></div>
+        <div id="hs-slide-form" class="hs-form"></div>
+        <div id="hs-elem-form" class="hs-form" style="display:none;"></div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
@@ -67,22 +65,17 @@
     <script src='/assets/js/vendor/ractive.min.js'></script>
 
     <script>
-    window.slides = [
-        {
-            id: 1,
+    window.slides = {
+        1: {
             html: `<div class="draggable" id="elem_1" style="position:absolute;top:10%;left:10%;width:10%;height:10%;background-color:purple;border-style:solid;border-color:black;"></div>
                     <div class="draggable" id="elem_2" style="position:absolute;top:30%;left:10%;width:10%;height:10%;background-color:yellow;border-style:solid;border-color:black;"></div>`
-        },
-        {id: 2,html: ``},
-        {id: 3,html: ``},
-        {id: 4,html: ``},
-        {id: 5,html: ``},
-    ];
+        }
+    };
 
-    let slide_id_count = 1;
-    let slide_element_id_count = 3;
     let current_slide = 1;
+    let slide_count = 1;
     let current_slide_element = 1;
+    let slide_element_id_count = 3;
     const position = { x: 0, y: 0 }
     let previous_style = {};
     let slide_width = document.getElementById("hs-active-slide").clientWidth;
@@ -116,7 +109,7 @@
                 event.target.style['border-style'] = previous_style['border-style'];
                 event.target.style['border-width'] = previous_style['border-width'];
                 update_preview();
-                window.slides[current_slide-1].html = document.getElementById('hs-active-slide').innerHTML;
+                window.slides[current_slide].html = document.getElementById('hs-active-slide').innerHTML;
             }
         }
     }).resizable({
@@ -151,38 +144,46 @@
                 event.target.style['border-style'] = previous_style['border-style'];
                 event.target.style['border-width'] = previous_style['border-width'];
                 update_preview();
-                window.slides[current_slide-1].html = document.getElementById('hs-active-slide').innerHTML;
+                window.slides[current_slide].html = document.getElementById('hs-active-slide').innerHTML;
             }
         }
     })
 
-    let add_square_btn_elem = document.getElementById('hs-add-rect-btn')
-    add_square_btn_elem.addEventListener('click', function(elem) {
-        let newrect = document.createElement('div');
-        slide_element_id_count++;
-        newrect.id = "elem_"+slide_element_id_count;
-        newrect.classList.add("draggable");
-        newrect.style.cssText = 'position:absolute;top:0%;left:0%;width:10%;height:10%;color:purple;border-style:solid;border-color:black;';
-        document.getElementById('hs-active-slide').appendChild(newrect);
-    })
-    var slide_previews = document.getElementsByClassName("hs-slide");
-    for (var i = 0; i < slide_previews.length; i++) {
-        slide_previews[i].addEventListener('click', function(elem) {
-            current_slide = elem.target.dataset.slide;
-            document.getElementById('hs-active-slide').innerHTML = window.slides[current_slide-1].html;
-        });
-    }
-
     document.addEventListener("click", function (e) {
         if (e.target instanceof HTMLElement) {
-            if (e.target.classList.contains('draggable')) {
-                current_slide_element = e.target.id;                
+            if (e.target.id == 'hs-add-rect-btn') {
+                let newrect = document.createElement('div');
+                slide_element_id_count++;
+                newrect.id = "elem_"+slide_element_id_count;
+                newrect.classList.add("draggable");
+                newrect.style.cssText = 'position:absolute;top:0%;left:0%;width:10%;height:10%;color:purple;border-style:solid;border-color:black;';
+                document.getElementById('hs-active-slide').appendChild(newrect);
+            } else if (e.target.id == 'hs-add-slide-btn') {
+                let newslide = document.createElement('img');
+                slide_count++;
+                newslide.id = "slide_"+slide_count;
+                newslide.classList.add("hs-slide");
+                let current_slide_element = document.getElementById('slide_'+current_slide);
+                window.slides[slide_count] = {html:''};
+                current_slide_element.parentNode.insertBefore(newslide, current_slide_element.nextSibling);
+                current_slide = slide_count;
+            } else if (e.target.classList.contains('draggable')) {
+                current_slide_element = e.target.id.split('_')[1];  
                 var data = _.mapValues(_.keyBy(_.map(e.target.style.cssText.split(';'),function(elem) {
                     let parts = elem.split(':');
                     return {key:[(parts[0]+'').trim()],value:(parts[1]+'').trim()};
                 }),'key'),'value');
+                document.getElementById('hs-slide-form').style.display = 'none'
+                document.getElementById('hs-elem-form').style.display = 'block'
                 elem_form.set(null);
-                elem_form.set({style:data,info:{elem_id:e.target.id}});
+                elem_form.set({style:data,info:{elem_id:current_slide_element}});
+            } else if (e.target.classList.contains('hs-slide')) {
+                current_slide = e.target.id.split('_')[1];
+                document.getElementById('hs-active-slide').innerHTML = window.slides[current_slide].html;
+                document.getElementById('hs-slide-form').style.display = 'block'
+                document.getElementById('hs-elem-form').style.display = 'none'
+                slide_form.set(null);
+                slide_form.set({style:data,info:{elem_id:current_slide}});
             }
         }
     })
@@ -223,7 +224,7 @@
                         newimg.style.cssText = 'position:absolute;top:0%;left:0%;width:'+imgwidth+'%;height:'+imgheight+'%;color:purple;border-style:solid;border-color:black;';
                         document.getElementById('hs-active-slide').appendChild(newimg);
                         update_preview();
-                        window.slides[current_slide-1].html = document.getElementById('hs-active-slide').innerHTML;
+                        window.slides[current_slide].html = document.getElementById('hs-active-slide').innerHTML;
                     };
                     newimg.src = event.target.result;
 
@@ -246,7 +247,7 @@
             });
     };
 
-    document.getElementById('hs-active-slide').innerHTML = window.slides[0].html;
+    document.getElementById('hs-active-slide').innerHTML = window.slides[1].html;
     update_preview();
 
     window.elem_form = new gform({
@@ -278,12 +279,36 @@
         }]
     }, '#hs-elem-form').on('change',function(event) {
         for (const [key, value] of Object.entries(event.form.get().style)) {
-            let element = document.getElementById(current_slide_element);
+            let element = document.getElementById('elem_'+current_slide_element);
             element.style[key] = value;
         }
     }).on('delete',function(event) {
         document.getElementById(current_slide_element).outerHTML = "";
     });
+
+    window.slide_form = new gform({
+        data: {},
+        actions: [{
+            type: 'button',
+			action: "delete",
+			label: "Delete Slide",
+			modifiers: "btn btn-danger"
+		}],
+        fields: [{
+			type: "fieldset",
+			label: "Info",
+			name: "info",
+			fields: [
+                {label:'Slide ID', name:'elem_id', edit:false}, 
+            ]
+        }]
+    }, '#hs-slide-form').on('change',function(event) {
+        // Do Nothing!
+    }).on('delete',function(event) {
+        document.getElementById('slide_'+current_slide).outerHTML = "";
+        delete window.slides[current_slide];
+    });
+
     </script>
 
   </body>
