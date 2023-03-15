@@ -8,14 +8,14 @@
     <meta name="author" content="">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0" />
     <link rel="icon"  type="image/png" href="/assets/icons/fontawesome/gray/32/user-circle.png">
-    <title>HyperSlide</title>
+    <title>HyperSlides</title>
 
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <!--<link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">-->
     <!-- Custom styles for this template -->
-    <link href="/assets/css/HyperSlide.css" rel="stylesheet">
+    <link href="/assets/css/HyperSlides.css" rel="stylesheet">
     <link href="/assets/css/toastr.min.css" rel="stylesheet">
     <link href="/assets/css/font-awesome.min.css" rel="stylesheet">
     <link href="/assets/css/colorpicker.min.css" rel="stylesheet">
