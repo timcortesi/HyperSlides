@@ -48,6 +48,7 @@
         </div>
     </div>
     <div id="hs-right-toolbar">
+        <div id="hs-elem-form" style="background-color:white;"></div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
@@ -275,7 +276,7 @@
                 {label:'Border Color', name:'border-color', type:'color'},
             ]
         }]
-    }, '#hs-right-toolbar').on('change',function(event) {
+    }, '#hs-elem-form').on('change',function(event) {
         for (const [key, value] of Object.entries(event.form.get().style)) {
             let element = document.getElementById(current_slide_element);
             element.style[key] = value;
