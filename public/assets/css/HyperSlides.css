@@ -8,8 +8,8 @@ body {
     outline: none;
 }
 
-.draggable:focus-visible, .draggable:focus  {
-    outline-color: blue !important;
+.draggable.selected  {
+    outline-color: rgb(180,205,247) !important;
     outline-width: 3px !important;
     outline-style: solid;
 }
@@ -78,10 +78,11 @@ body {
   background-color:white;
   margin:3px 10px 7px 10px;
   border-radius:20px;
+  overflow:hidden;
 }
 
-.hs-slide:focus-visible, .hs-slide:focus  {
-    outline-color: blue !important;
+.hs-slide.selected  {
+    outline-color: rgb(17,80,194) !important;
     outline-width: 3px !important;
     outline-style: solid;
 }

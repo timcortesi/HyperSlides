@@ -9,6 +9,11 @@ window.forms = {
 		}],
         fields: [
             {label:'Element ID', name:'id', edit:false, type:'number'}, 
+            {label:"Type", name:"type", type: "select", options: [
+                {label:'Shape',value:'shape'},
+                {label:'Image',value:'image'}
+            ]},
+            {name:'data', type:'hidden'}, 
             {
                 type: "fieldset",
                 label: "Style",
