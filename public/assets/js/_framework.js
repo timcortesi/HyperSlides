@@ -6,9 +6,6 @@ window.app = {
     update:{},
     forms:{},
 }
-window.templates = {
-    main: ''
-}
 
 var ractive = Ractive({
     target: '#main_target',
@@ -29,7 +26,7 @@ app.update = function(newdata) {
     }
 };
 
-app.get = function(method,data,callback_success,error_callback) {
+app.get = function(method,{},callback_success,error_callback) {
     $.ajax({
         url:'handler?action='+method,
         success:function(data){callback_success(data)},
