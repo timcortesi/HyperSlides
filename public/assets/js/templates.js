@@ -51,22 +51,40 @@ menubar: `
 
 left_sidebar: `
 <div id="hs-sidebar">
-    <img class="hs-slide" id="slide_1">
+    {{#slides}}
+    <img class="hs-slide" id="slide_{{id}}" data-slide_id="{{id}}" src="{{preview}}">
+    {{/slides}}
 </div>
 `,
 
 right_sidebar: `
 <div id="hs-right-toolbar">
-    <div id="hs-slide-form" class="hs-form"></div>
-    <div id="hs-elem-form" class="hs-form" style="display:none;"></div>
+    <div id="hs-slide-form" class="hs-form" style="display:{{#if(form_focus == 'slide')}}block{{else}}none{{/if}}"></div>
+    <div id="hs-elem-form" class="hs-form" style="display:{{#if(form_focus == 'element')}}block{{else}}none{{/if}}"></div>
 </div>
 `,
 
 active_slide: `
 <div id="hs-main">
     <div id="hs-active-slide" style="position:relative;">
-        <div class="draggable" id="elem_1" style="position:absolute;top:10%;left:10%;width:10%;height:10%;background-color:purple;border-style:solid;border-color:black;"></div>
-        <div class="draggable" id="elem_2" style="position:absolute;top:30%;left:10%;width:10%;height:10%;background-color:yellow;border-style:solid;border-color:black;"></div>
+    {{#current_slide.elements}}
+        <div class="draggable" 
+            id="elem_{{id}}" 
+            data-elem_id="{{id}}" 
+            style="
+            {{#style}}
+                position:absolute;
+                {{#top}}top:{{top}};{{/}}
+                {{#left}}left:{{left}};{{/}}
+                {{#width}}width:{{width}};{{/}}
+                {{#height}}height:{{height}};{{/}}
+                {{#background_color}}background-color:{{background_color}};{{/}}
+                {{#border_style}}border-style:{{border_style}};{{/}}
+                {{#border_color}}border-color:{{border_color}};{{/}}
+                {{#border_radius}}border-radius:{{border_radius}};{{/}}
+            {{/style}}
+            "></div>
+    {{/current_slide.elements}}
     </div>
 </div>
 `,
