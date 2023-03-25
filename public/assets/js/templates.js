@@ -135,6 +135,7 @@ active_slide: `
                 {{#border_color}}border-color:{{border_color}};{{/}}
                 {{#border_radius}}border-radius:{{border_radius * scaling.scale_x}}px;{{/}}
                 {{#border_width}}border-width:{{border_width * scaling.scale_x}}px;{{/}}
+                {{^show}}display:none;{{/}}
             {{/style}}
             ">
     {{/if}}
@@ -156,6 +157,7 @@ active_slide: `
                 {{#border_color}}border-color:{{border_color}};{{/}}
                 {{#border_radius}}border-radius:{{border_radius * scaling.scale_x}}px;{{/}}
                 {{#border_width}}border-width:{{border_width * scaling.scale_x}}px;{{/}}
+                {{^show}}display:none;{{/}}
             {{/style}}
             ">{{{text}}}
         </div>

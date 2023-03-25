@@ -36,5 +36,6 @@
     <script src='/assets/js/templates.js'></script>
     <script src='/assets/js/_framework.js'></script>
     <script src='/assets/js/main.js'></script>
+    <script src='/assets/js/viewer.js'></script>
   </body>
 </html>

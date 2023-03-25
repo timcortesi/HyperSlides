@@ -37,7 +37,8 @@ window.forms = {
                         {label:'Right',value:'right'}
                     ]},
                 ]
-            }
+            },
+            {label:'Hide / Show', name:'show', type:'switch', options: [{label:'Show',value:true},{label:'Hide',value:false},],default:true}, 
         ]
     }, 
 

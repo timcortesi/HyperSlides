@@ -7,6 +7,7 @@ app.callback = function() {
                 {
                     id: 1,
                     type: 'shape',
+                    show:true,
                     style: {
                         top: 100,
                         left: 100,
@@ -15,12 +16,13 @@ app.callback = function() {
                         background_color: 'purple',
                         border_style: 'solid',
                         border_color: 'black',
-                        text_size:30
+                        text_size:30,
                     }
                 },
                 {
                     id: 2,
                     type: 'shape',
+                    show:true,
                     style: {
                         top: 300,
                         left: 100,
@@ -29,7 +31,7 @@ app.callback = function() {
                         background_color: 'yellow',
                         border_style: 'solid',
                         border_color: 'black',
-                        text_size:30
+                        text_size:30,
                     }
                 }
             ]
@@ -188,6 +190,7 @@ app.callback = function() {
             id: app.data.element_id_counter,
             text: '',
             type:'shape',
+            show:true,
             style: {
                 top: 30,
                 left: 30,
@@ -195,7 +198,7 @@ app.callback = function() {
                 height: 200,
                 border_style: 'solid',
                 border_color: 'black',
-                text_size:30
+                text_size:30,
             }
         });
         app.data.current_element = _.find(app.data.current_slide.elements,{id:app.data.element_id_counter})
@@ -207,6 +210,7 @@ app.callback = function() {
         app.data.current_slide.elements.push({
             id: app.data.element_id_counter,
             type:'shape',
+            show:true,
             style: {
                 top: 30,
                 left: 30,
@@ -215,7 +219,7 @@ app.callback = function() {
                 border_style: 'solid',
                 border_color: 'black',
                 border_radius:'800',
-                text_size:30
+                text_size:30,
             }
         });
         app.data.current_element = _.find(app.data.current_slide.elements,{id:app.data.element_id_counter})
@@ -227,6 +231,7 @@ app.callback = function() {
         app.data.current_slide.elements.push({
             id: app.data.element_id_counter,
             type:'shape',
+            show:true,
             style: {
                 top: 30,
                 left: 30,
@@ -234,7 +239,7 @@ app.callback = function() {
                 height: 75,
                 border_style: 'none',
                 text_size:60,
-                text_color:'black'
+                text_color:'black',
             }
         });
         app.data.current_element = _.find(app.data.current_slide.elements,{id:app.data.element_id_counter})
@@ -447,7 +452,6 @@ app.callback = function() {
             app.update();
         }
     }).set(app.data.current_slide);
-      
 }
 
 app.callback();
