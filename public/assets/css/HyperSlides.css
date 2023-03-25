@@ -3,6 +3,10 @@ body {
   background-color: rgb(249,251,253);
 }
 
+#main_target {
+  height:100%;
+}
+
 /* Remove Blue Outline around Buttons */
 .btn:focus, .btn:focus-visible, .btn:active, .btn:focus.btn:active {
     outline: none;
@@ -98,7 +102,6 @@ body {
 }
 
 #hs-active-slide {
-  width:100%;
   aspect-ratio: auto 16 / 10;
   border:solid 1px;
   border-color:lightgray;

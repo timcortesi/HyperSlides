@@ -16,8 +16,9 @@ menubar: `
             Edit
         </div>
         <ul class="dropdown-menu">
-            <li><a href="#">Copy</a></li>
-            <li><a href="#">Paste</a></li>
+            <li><a class="hs-cut-btn" href="#"><i class="fa fa-scissors"></i> Cut</a></li>
+            <li><a class="hs-copy-btn" href="#"><i class="fa fa-clone"></i> Copy</a></li>
+            <li><a class="hs-paste-btn" href="#"><i class="fa fa-clipboard"></i> Paste</a></li>
         </ul>
     </div>
     <div class="btn-group">
@@ -25,7 +26,7 @@ menubar: `
             View
         </div>
         <ul class="dropdown-menu">
-            <li><a href="#">Slideshow</a></li>
+            <li><a class="hs-start-slideshow-btn" href="#">Slideshow</a></li>
         </ul>
     </div>
     <div class="btn-group">
@@ -33,18 +34,32 @@ menubar: `
             Insert
         </div>
         <ul class="dropdown-menu">
-            <li><a href="#">Insert Rectangle</a></li>
-            <li><a href="#">Insert Oval</a></li>
+            <li><a class="hs-add-text-btn" href="#">Insert Text</a></li>
+            <li><a class="hs-add-rect-btn" href="#"><i class="fa fa-square-o"></i> Insert Rectangle</a></li>
+            <li><a class="hs-add-oval-btn" href="#"><i class="fa fa-circle-thin"></i> Insert Oval</a></li>
+        </ul>
+    </div>
+    <div class="btn-group">
+        <div class="btn-sm dropdown-toggle hs-menubar-action" data-toggle="dropdown">
+            Arrange
+        </div>
+        <ul class="dropdown-menu">
+            <li><a class="hs-bring-to-front" href="#">Bring to Front</a></li>
+            <li><a class="hs-bring-forward" href="#">Bring Forward</a></li>
+            <li><a class="hs-send-backward" href="#">Send Backward</a></li>
+            <li><a class="hs-send-to-back" href="#">Send to Back</a></li>
         </ul>
     </div>
 </div>
+<div class="btn btn-primary pull-right hs-start-slideshow-btn">Start Slideshow</div>
 </div>
 
 <div id="hs-menubar-btns" style="padding:6px 16px;background-color:rgb(238,242,249);border-radius:30px;margin:48px 10px;"> 
 <div id="hs-add-slide-btn" class="btn btn-default"><i class="fa fa-plus"></i></div>
 <div class="btn-group" role="group">
-    <div id="hs-add-rect-btn" class="btn btn-default"><i class="fa fa-square-o"></i></div>
-    <div id="hs-add-oval-btn" class="btn btn-default"><i class="fa fa-circle-thin"></i></div>
+    <div class="hs-add-text-btn" class="btn btn-default" style="text-align:center;">T</div>
+    <div class="hs-add-rect-btn" class="btn btn-default"><i class="fa fa-square-o"></i></div>
+    <div class="hs-add-oval-btn" class="btn btn-default"><i class="fa fa-circle-thin"></i></div>
 </div>
 </div>
 `,
@@ -63,10 +78,10 @@ left_sidebar: `
                         {{#left}}left:{{left * scaling.preview_scale_x}}px;{{/}}
                         {{#width}}width:{{width * scaling.preview_scale_x}}px;{{/}}
                         {{#height}}height:{{height * scaling.preview_scale_y}}px;{{/}}
-                        {{#background_color}}background-color:{{background_color}};{{/}}
                         {{#border_style}}border-style:{{border_style}};{{/}}
                         {{#border_color}}border-color:{{border_color}};{{/}}
-                        {{#border_radius}}border-radius:{{border_radius}};{{/}}
+                        {{#border_radius}}border-radius:{{border_radius * scaling.preview_scale_x}}px;{{/}}
+                        {{#border_width}}border-width:{{border_width * scaling.preview_scale_x}}px;{{/}}
                     {{/style}}
                     ">
             {{/if}}
@@ -78,12 +93,15 @@ left_sidebar: `
                         {{#left}}left:{{left * scaling.preview_scale_x}}px;{{/}}
                         {{#width}}width:{{width * scaling.preview_scale_x}}px;{{/}}
                         {{#height}}height:{{height * scaling.preview_scale_y}}px;{{/}}
+                        {{#text_color}}color:{{text_color}};{{/}}
+                        {{#text_size}}font-size:{{text_size * scaling.preview_scale_x}}px;{{/}}
                         {{#background_color}}background-color:{{background_color}};{{/}}
                         {{#border_style}}border-style:{{border_style}};{{/}}
                         {{#border_color}}border-color:{{border_color}};{{/}}
-                        {{#border_radius}}border-radius:{{border_radius}};{{/}}
+                        {{#border_radius}}border-radius:{{border_radius * scaling.preview_scale_x}}px;{{/}}
+                        {{#border_width}}border-width:{{border_width * scaling.preview_scale_x}}px;{{/}}
                     {{/style}}
-                    ">
+                    ">{{{text}}}
                 </div>
             {{/if}}
         {{/elements}}
@@ -93,65 +111,75 @@ left_sidebar: `
 `,
 
 right_sidebar: `
-<div id="hs-right-toolbar">
+<div id="hs-right-toolbar" {{#if (mode == 'viewer')}}style="display:none;"{{/if}}>
     <div id="hs-slide-form" class="hs-form" style="display:{{#if(form_focus == 'slide')}}block{{else}}none{{/if}}"></div>
     <div id="hs-elem-form" class="hs-form" style="display:{{#if(form_focus == 'element')}}block{{else}}none{{/if}}"></div>
 </div>
 `,
 
 active_slide: `
-<div id="hs-main">
-    <div id="hs-active-slide" style="position:relative;">
-    {{#current_slide.elements}}
-        {{#if (type == 'image')}}
-            <img class="draggable {{#if(id == current_element.id)}}selected{{/if}}" 
-                id="elem_{{id}}" 
-                data-elem_id="{{id}}" 
-                src="{{data}}"
-                style="
-                {{#style}}
-                    position:absolute;
-                    {{#top}}top:{{top * scaling.scale_y}}px;{{/}}
-                    {{#left}}left:{{left * scaling.scale_x}}px;{{/}}
-                    {{#width}}width:{{width * scaling.scale_x}}px;{{/}}
-                    {{#height}}height:{{height * scaling.scale_y}}px;{{/}}
-                    {{#background_color}}background-color:{{background_color}};{{/}}
-                    {{#border_style}}border-style:{{border_style}};{{/}}
-                    {{#border_color}}border-color:{{border_color}};{{/}}
-                    {{#border_radius}}border-radius:{{border_radius}};{{/}}
-                    {{#border_width}}border-width:{{border_width}};{{/}}
-                {{/style}}
-                ">
-        {{/if}}
-        {{#if (type == 'shape')}}
-            <div class="draggable {{#if(id == current_element.id)}}selected{{/if}}" 
-                id="elem_{{id}}" 
-                data-elem_id="{{id}}" 
-                style="
-                {{#style}}
-                    position:absolute;
-                    {{#top}}top:{{top * scaling.scale_y}}px;{{/}}
-                    {{#left}}left:{{left * scaling.scale_x}}px;{{/}}
-                    {{#width}}width:{{width * scaling.scale_x}}px;{{/}}
-                    {{#height}}height:{{height * scaling.scale_y}}px;{{/}}
-                    {{#background_color}}background-color:{{background_color}};{{/}}
-                    {{#border_style}}border-style:{{border_style}};{{/}}
-                    {{#border_color}}border-color:{{border_color}};{{/}}
-                    {{#border_radius}}border-radius:{{border_radius}};{{/}}
-                    {{#border_width}}border-width:{{border_width}};{{/}}
-                {{/style}}
-                ">
-            </div>
-        {{/if}}
-    {{/current_slide.elements}}
-    </div>
-</div>
+{{#current_slide.elements}}
+    {{#if (type == 'image')}}
+        <img class="{{#if(mode == 'editor')}}draggable{{/if}} {{#if(id == current_element.id)}}selected{{/if}}" 
+            id="elem_{{id}}" 
+            data-elem_id="{{id}}" 
+            src="{{data}}"
+            style="
+            {{#style}}
+                position:absolute;
+                {{#top}}top:{{top * scaling.scale_y}}px;{{/}}
+                {{#left}}left:{{left * scaling.scale_x}}px;{{/}}
+                {{#width}}width:{{width * scaling.scale_x}}px;{{/}}
+                {{#height}}height:{{height * scaling.scale_y}}px;{{/}}
+                {{#border_style}}border-style:{{border_style}};{{/}}
+                {{#border_color}}border-color:{{border_color}};{{/}}
+                {{#border_radius}}border-radius:{{border_radius * scaling.scale_x}}px;{{/}}
+                {{#border_width}}border-width:{{border_width * scaling.scale_x}}px;{{/}}
+            {{/style}}
+            ">
+    {{/if}}
+    {{#if (type == 'shape')}}
+        <div class="{{#if(mode == 'editor')}}draggable{{/if}} {{#if(id == current_element.id)}}selected{{/if}}" 
+            id="elem_{{id}}" 
+            data-elem_id="{{id}}" 
+            style="
+            {{#style}}
+                position:absolute;
+                {{#top}}top:{{top * scaling.scale_y}}px;{{/}}
+                {{#left}}left:{{left * scaling.scale_x}}px;{{/}}
+                {{#width}}width:{{width * scaling.scale_x}}px;{{/}}
+                {{#height}}height:{{height * scaling.scale_y}}px;{{/}}
+                {{#text_color}}color:{{text_color}};{{/}}
+                {{#text_size}}font-size:{{text_size * scaling.scale_x}}px;{{/}}
+                {{#background_color}}background-color:{{background_color}};{{/}}
+                {{#border_style}}border-style:{{border_style}};{{/}}
+                {{#border_color}}border-color:{{border_color}};{{/}}
+                {{#border_radius}}border-radius:{{border_radius * scaling.scale_x}}px;{{/}}
+                {{#border_width}}border-width:{{border_width * scaling.scale_x}}px;{{/}}
+            {{/style}}
+            ">{{{text}}}
+        </div>
+    {{/if}}
+{{/current_slide.elements}}
 `,
 
 main: `
-    {{>menubar}}
-    {{>left_sidebar}}
-    {{>active_slide}}
+    {{#if (mode == 'editor')}}
+        {{>menubar}}
+        {{>left_sidebar}}
+        <div id="hs-main">
+            <div id="hs-active-slide" style="position:relative;">
+                {{>active_slide}}
+            </div>
+        </div>
+    {{/if}}
+    {{#if (mode == 'viewer')}}
+        <div style="width:100%;height:100%;background-color:black">
+            <div id="hs-active-slide" style="position:relative;max-height:100%;max-width:100%;margin:auto;">
+                {{>active_slide}}
+            </div>
+        </div>
+    {{/if}}
     {{>right_sidebar}}
 `
 };

@@ -10,23 +10,25 @@ window.forms = {
         fields: [
             {label:'Element ID', name:'id', edit:false, type:'number'}, 
             {label:"Type", name:"type", type: "select", options: [
-                {label:'Shape',value:'shape'},
+                {label:'Shape / Text',value:'shape'},
                 {label:'Image',value:'image'}
             ]},
+            {label:'Text', name:'text', type:'textarea'}, 
             {name:'data', type:'hidden'}, 
             {
                 type: "fieldset",
                 label: "Style",
                 name: "style",
                 fields: [
-                    {name:'top', type:'hidden'}, 
-                    {label:'left', type:'hidden'}, 
-                    {label:'width', type:'hidden'}, 
-                    {label:'height', type:'hidden'}, 
+                    {name:'top', show:false, parse: true, type:'number'}, 
+                    {label:'left', show:false, parse: true,  type:'number'}, 
+                    {label:'width', show:false, parse: true,  type:'number'}, 
+                    {label:'height', show:false, parse: true,  type:'number'}, 
                     {label:'Background Color', name:'background_color', type:'color'}, 
-                    {label:'Text Color', name:'color', type:'color'},
-                    {label:'Border Radius', name:'border_radius'},
-                    {label:'Border Width', name:'border_width'},
+                    {label:'Text Color', name:'text_color', type:'color'},
+                    {label:'Text Size', name:'text_size', type:'number'},
+                    {label:'Border Width', name:'border_width', type:'number'},
+                    {label:'Border Radius', name:'border_radius', type:'number'},
                     {label:'Border Style', name:'border_style', type:'text'},
                     {label:'Border Color', name:'border_color', type:'color'},
                     {label:"Text Alignment", name:"text_align", type: "custom_radio", options: [

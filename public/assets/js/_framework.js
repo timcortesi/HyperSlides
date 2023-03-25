@@ -208,3 +208,11 @@ app.copy = function(selector) {
     window.getSelection().removeAllRanges();
     app.alert("Copied to Clipboard")
 }
+
+app.keydown = function(keycode, callback) {
+    document.addEventListener('keydown',(event) => {
+        if (event.code == keycode) {
+            callback(event)
+        }
+    }, false);
+}
