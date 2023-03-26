@@ -70,7 +70,7 @@ app.callback = function() {
                     type: 'shape',
                     show:true,
                     click_event:false,
-                    text:'Go back!',
+                    text:'Go Back!',
                     click_event:true,
                     script:"hs.slide(1).visit();\n",
                     style: {

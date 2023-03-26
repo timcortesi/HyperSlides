@@ -55,11 +55,11 @@ menubar: `
 </div>
 
 <div id="hs-menubar-btns" style="padding:6px 16px;background-color:rgb(238,242,249);border-radius:30px;margin:48px 10px;"> 
-<div id="hs-add-slide-btn" class="btn btn-default"><i class="fa fa-plus"></i></div>
+<div id="hs-add-slide-btn" class="btn btn-default {{#if(mode != 'editor')}}disabled{{/if}}"><i class="fa fa-plus"></i></div>
 <div class="btn-group" role="group">
-    <div class="hs-add-text-btn" class="btn btn-default" style="text-align:center;">T</div>
-    <div class="hs-add-rect-btn" class="btn btn-default"><i class="fa fa-square-o"></i></div>
-    <div class="hs-add-oval-btn" class="btn btn-default"><i class="fa fa-circle-thin"></i></div>
+    <div class="hs-add-text-btn" class="btn btn-default {{#if(mode != 'editor')}}disabled{{/if}}" style="text-align:center;">T</div>
+    <div class="hs-add-rect-btn" class="btn btn-default {{#if(mode != 'editor')}}disabled{{/if}}"><i class="fa fa-square-o"></i></div>
+    <div class="hs-add-oval-btn" class="btn btn-default {{#if(mode != 'editor')}}disabled{{/if}}"><i class="fa fa-circle-thin"></i></div>
 </div>
 <div class="btn-group" role="group">
     <div class="hs-editor-mode-btn" class="btn btn-default {{#if(mode == 'editor')}}active{{/if}}"><i class="fa fa-mouse-pointer"></i></div>
