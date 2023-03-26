@@ -216,3 +216,40 @@ app.keydown = function(keycode, callback) {
         }
     }, false);
 }
+
+/* View in fullscreen */
+app.enterfs = function() {
+    let elem = document.documentElement;
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+        elem.msRequestFullscreen();
+    }
+}
+
+/* Close fullscreen */
+app.exitfs = function() {
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) { /* Safari */
+        document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) { /* IE11 */
+        document.msExitFullscreen();
+    }
+}
+
+app.onexitfs = function(callback) {
+    let exitHandler = function() {
+        if (!document.webkitIsFullScreen && !document.mozFullScreen && !document.msFullscreenElement) {
+            callback()
+        }
+    }
+    if (document.addEventListener) {
+        document.addEventListener('fullscreenchange', exitHandler, false);
+        document.addEventListener('mozfullscreenchange', exitHandler, false);
+        document.addEventListener('MSFullscreenChange', exitHandler, false);
+        document.addEventListener('webkitfullscreenchange', exitHandler, false);
+    }
+}

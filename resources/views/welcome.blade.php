@@ -34,7 +34,7 @@
     <script src='/assets/js/vendor/ractive.min.js'></script>
     <script src='/assets/js/forms.js'></script>
     <script src='/assets/js/templates.js'></script>
-    <script src='/assets/js/_framework.js'></script>
+    <script src='/assets/js/framework.js'></script>
     <script src='/assets/js/main.js'></script>
     <script src='/assets/js/viewer.js'></script>
   </body>

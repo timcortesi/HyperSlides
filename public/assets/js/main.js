@@ -402,6 +402,7 @@ app.callback = function() {
     app.click('.hs-start-slideshow-btn',function(e) {
         app.data.mode = 'slideshow';
         app.update();
+        app.enterfs();
         resize_window();
     })
 
@@ -439,6 +440,7 @@ app.callback = function() {
             if (current_slide_index >= app.data.slides.length-1) {
                 app.data.mode = 'editor';
                 app.update();
+                app.exitfs();
                 resize_window();
             } else {
                 app.data.current_slide = app.data.slides[current_slide_index+1];
@@ -452,6 +454,7 @@ app.callback = function() {
             if (current_slide_index >= app.data.slides.length-1) {
                 app.data.mode = 'editor';
                 app.update();
+                app.exitfs();
                 resize_window();
             } else {
                 app.data.current_slide = app.data.slides[current_slide_index+1];
@@ -465,6 +468,7 @@ app.callback = function() {
             if (current_slide_index == 0) {
                 app.data.mode = 'editor';
                 app.update();
+                app.exitfs();
                 resize_window();
             } else {
                 app.data.current_slide = app.data.slides[current_slide_index-1];
@@ -476,8 +480,14 @@ app.callback = function() {
         if (app.data.mode === 'slideshow') {
             app.data.mode = 'editor';
             app.update();
+            app.exitfs();
             resize_window();
         }
+    })
+    app.onexitfs(function() {
+        app.data.mode = 'editor';
+        app.update();
+        resize_window();
     })
 
     /* Handle Clipboard Paste Events */
