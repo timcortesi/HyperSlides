@@ -42,9 +42,9 @@ class Element{
         await animateDiv(this.current_element,x,y,seconds);
         return this;
     }
-    move(top,left) {
-        this.current_element.style.top = top;
-        this.current_element.style.left = left; 
+    move(x,y) {
+        this.current_element.style.top = y;
+        this.current_element.style.left = x; 
         app.update();
         return this;
     }
@@ -54,7 +54,7 @@ class Element{
         return this;
     }
     show() {
-        this.current_element.show = false;
+        this.current_element.show = true;
         app.update();
         return this;
     }

@@ -15,6 +15,9 @@ window.forms = {
             ]},
             {label:'Text', name:'text', type:'textarea'}, 
             {name:'data', type:'hidden'}, 
+            {label:'Visibility', name:'show', type:'switch', options: [{label:'Hide',value:false},{label:'Show',value:true}],default:true},
+            {label:'Click Event', name:'click_event', type:'switch', options: [{label:'Disbled',value:false},{label:'Enabled',value:true}],default:false},
+            {label:'Script', name:'script', type:'textarea',show:[{"op": "and",conditions:[{"type": "matches","name": "click_event","value": [true]}]}]},
             {
                 type: "fieldset",
                 label: "Style",
@@ -31,17 +34,13 @@ window.forms = {
                     {label:'Border Radius', name:'border_radius', type:'number'},
                     {label:'Border Style', name:'border_style', type:'text'},
                     {label:'Border Color', name:'border_color', type:'color'},
-                    {label:"Text Alignment", name:"text_align", type: "custom_radio", options: [
+                    {label:"Text Alignment", name:"text_align", type: "select", options: [
                         {label:'Left',value:'left'},
                         {label:'Center',value:'center'},
                         {label:'Right',value:'right'}
                     ]},
                 ]
-            },
-            {label:'Hide / Show', name:'show', type:'switch', options: [{label:'Hide',value:false},{label:'Show',value:true}],default:true},
-            {label:'Click Event', name:'click_event', type:'switch', options: [{label:'Disbled',value:false},{label:'Enabled',value:true}],default:false},
-            {label:'Script', name:'script', type:'textarea'}
-        ]
+            }        ]
     }, 
 
     slide_form: {

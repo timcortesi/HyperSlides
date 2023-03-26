@@ -11,32 +11,36 @@ app.callback = function() {
                     click_event:false,
                     text:'Click Me!',
                     click_event:true,
-                    script:"let box = hs.element(2);\nawait box.animate(1400,100); \nawait box.animate(1400,800);\nawait box.animate(100,800);\nawait box.animate(100,100);\nhs.slide(2).visit();\n",
+                    script:"let box = hs.element(2);\nbox.show();\nawait box.animate(1400,100); \nawait box.animate(1400,800);\nawait box.animate(100,800);\nawait box.animate(100,100);\nbox.hide();\nhs.slide(2).visit();\n",
                     style: {
                         top: 450,
-                        left: 750,
+                        left: 700,
                         width: 200,
                         height: 100,
                         background_color: 'orange',
                         border_style: 'solid',
                         border_color: 'black',
                         text_size:30,
+                        border_radius:30,
+                        text_align:'center',
                     }
                 },
                 {
                     id: 2,
                     type: 'shape',
-                    show:true,
+                    show:false,
                     click_event:false,
+                    text:'<i class="fa fa-rocket"></i>',
                     style: {
                         top: 100,
                         left: 100,
                         width: 100,
                         height: 100,
                         background_color: 'yellow',
-                        border_style: 'solid',
+                        border_style: 'none',
                         border_color: 'black',
                         text_size:30,
+                        text_align:'center',
                     }
                 }
             ]
@@ -52,12 +56,13 @@ app.callback = function() {
                     text:'Welcome to the second slide!',
                     click_event:false,
                     style: {
-                        top: 500,
+                        top: 400,
                         left: 400,
                         width: 700,
-                        height: 200,
+                        height: 150,
                         border_style: 'none',
                         text_size:50,
+                        text_align:'center',
                     }
                 },
                 {
@@ -70,7 +75,7 @@ app.callback = function() {
                     script:"hs.slide(1).visit();\n",
                     style: {
                         top: 600,
-                        left: 750,
+                        left: 700,
                         width: 200,
                         height: 100,
                         background_color: 'red',
@@ -78,6 +83,8 @@ app.callback = function() {
                         border_style: 'solid',
                         border_color: 'black',
                         text_size:30,
+                        border_radius:30,
+                        text_align:'center',
                     }
                 },
 
@@ -260,6 +267,7 @@ app.callback = function() {
                 border_style: 'solid',
                 border_color: 'black',
                 text_size:30,
+                text_align:'center',
             }
         });
         app.data.current_element = _.find(app.data.current_slide.elements,{id:app.data.element_id_counter})
@@ -285,6 +293,7 @@ app.callback = function() {
                 border_color: 'black',
                 border_radius:'800',
                 text_size:30,
+                text_align:'center',
             }
         });
         app.data.current_element = _.find(app.data.current_slide.elements,{id:app.data.element_id_counter})
@@ -309,6 +318,7 @@ app.callback = function() {
                 border_style: 'none',
                 text_size:60,
                 text_color:'black',
+                text_align:'center',
             }
         });
         app.data.current_element = _.find(app.data.current_slide.elements,{id:app.data.element_id_counter})

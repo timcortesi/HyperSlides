@@ -86,6 +86,7 @@ left_sidebar: `
                         {{#border_color}}border-color:{{border_color}};{{/}}
                         {{#border_radius}}border-radius:{{border_radius * scaling.preview_scale_x}}px;{{/}}
                         {{#border_width}}border-width:{{border_width * scaling.preview_scale_x}}px;{{/}}
+                        {{^show}}visibility:hidden;{{/}}
                     {{/style}}
                     ">
             {{/if}}
@@ -104,6 +105,10 @@ left_sidebar: `
                         {{#border_color}}border-color:{{border_color}};{{/}}
                         {{#border_radius}}border-radius:{{border_radius * scaling.preview_scale_x}}px;{{/}}
                         {{#border_width}}border-width:{{border_width * scaling.preview_scale_x}}px;{{/}}
+                        {{^show}}visibility:hidden;{{/}}
+                        display:flex;
+                        {{#text_align}}justify-content:{{text_align}};{{/text_align}}
+                        align-items: center;
                     {{/style}}
                     ">{{{text}}}
                 </div>
@@ -139,7 +144,7 @@ active_slide: `
                 {{#border_color}}border-color:{{border_color}};{{/}}
                 {{#border_radius}}border-radius:{{border_radius * scaling.scale_x}}px;{{/}}
                 {{#border_width}}border-width:{{border_width * scaling.scale_x}}px;{{/}}
-                {{^show}}display:none;{{/}}
+                {{^show}}{{#if(mode == 'editor')}}opacity:10%;{{else}}visibility:hidden;{{/if}}{{/}}
             {{/style}}
             ">
     {{/if}}
@@ -161,7 +166,10 @@ active_slide: `
                 {{#border_color}}border-color:{{border_color}};{{/}}
                 {{#border_radius}}border-radius:{{border_radius * scaling.scale_x}}px;{{/}}
                 {{#border_width}}border-width:{{border_width * scaling.scale_x}}px;{{/}}
-                {{^show}}display:none;{{/}}
+                {{^show}}{{#if(mode == 'editor')}}opacity:10%;{{else}}visibility:hidden;{{/if}}{{/}}
+                display:flex;
+                {{#text_align}}justify-content:{{text_align}};{{/text_align}}
+                align-items: center;
             {{/style}}
             ">{{{text}}}
         </div>
