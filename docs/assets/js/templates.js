@@ -26,7 +26,7 @@ menubar: `
             View
         </div>
         <ul class="dropdown-menu">
-            <li><a class="hs-start-slideshow-btn" href="#">Slideshow</a></li>
+            <li><a class="hs-start-slideshow-btn" href="#"><i class="fa fa-play"></i> Play</a></li>
         </ul>
     </div>
     <div class="btn-group">
@@ -51,7 +51,7 @@ menubar: `
         </ul>
     </div>
 </div>
-<div class="btn btn-primary pull-right hs-start-slideshow-btn">Start Slideshow</div>
+<div class="btn btn-success pull-right hs-start-slideshow-btn"><i class="fa fa-play"></i> Play</div>
 </div>
 
 <div id="hs-menubar-btns" style="padding:6px 16px;background-color:rgb(238,242,249);border-radius:30px;margin:48px 10px;"> 
