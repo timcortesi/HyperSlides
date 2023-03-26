@@ -11,7 +11,7 @@ app.callback = function() {
                     click_event:false,
                     text:'Click Me!',
                     click_event:true,
-                    script:"let box = new hs.element(2);\nawait box.animate(1400,100); \nawait box.animate(1400,800);\nawait box.animate(100,800);\nawait box.animate(100,100);\nlet slide = new hs.slide(2);\nslide.visit();\n",
+                    script:"let box = hs.element(2);\nawait box.animate(1400,100); \nawait box.animate(1400,800);\nawait box.animate(100,800);\nawait box.animate(100,100);\nhs.slide(2).visit();\n",
                     style: {
                         top: 450,
                         left: 750,
@@ -67,7 +67,7 @@ app.callback = function() {
                     click_event:false,
                     text:'Go back!',
                     click_event:true,
-                    script:"let slide = new hs.slide(1);\nslide.visit();\n",
+                    script:"hs.slide(1).visit();\n",
                     style: {
                         top: 600,
                         left: 750,

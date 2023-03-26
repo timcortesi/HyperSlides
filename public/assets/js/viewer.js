@@ -74,8 +74,14 @@ class Slide {
 }
 
 window.hs = {
-    element:Element,
-    slide:Slide,
+    element:function(element_id) {
+        let current_element = new Element(element_id);
+        return current_element;
+    },
+    slide:function(element_id) {
+        let current_slide = new Slide(element_id);
+        return current_slide;
+    },
     state:{}
 }
 
