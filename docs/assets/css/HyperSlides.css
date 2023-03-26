@@ -3,13 +3,17 @@ body {
   background-color: rgb(249,251,253);
 }
 
+#main_target {
+  height:100%;
+}
+
 /* Remove Blue Outline around Buttons */
 .btn:focus, .btn:focus-visible, .btn:active, .btn:focus.btn:active {
     outline: none;
 }
 
-.draggable:focus-visible, .draggable:focus  {
-    outline-color: blue !important;
+.draggable.selected  {
+    outline-color: rgb(180,205,247) !important;
     outline-width: 3px !important;
     outline-style: solid;
 }
@@ -78,10 +82,11 @@ body {
   background-color:white;
   margin:3px 10px 7px 10px;
   border-radius:20px;
+  overflow:hidden;
 }
 
-.hs-slide:focus-visible, .hs-slide:focus  {
-    outline-color: blue !important;
+.hs-slide.selected  {
+    outline-color: rgb(17,80,194) !important;
     outline-width: 3px !important;
     outline-style: solid;
 }
@@ -97,10 +102,18 @@ body {
 }
 
 #hs-active-slide {
-  width:100%;
   aspect-ratio: auto 16 / 10;
   border:solid 1px;
   border-color:lightgray;
   background-color:white;
 }
 
+.clickable:hover {
+  cursor:pointer;
+}
+
+#hs-elem-form [name='script'] {
+  display: block;
+  font-family: monospace;
+  white-space: pre;
+}

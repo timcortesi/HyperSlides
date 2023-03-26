@@ -108,3 +108,12 @@ body {
   background-color:white;
 }
 
+.clickable:hover {
+  cursor:pointer;
+}
+
+#hs-elem-form [name='script'] {
+  display: block;
+  font-family: monospace;
+  white-space: pre;
+}
