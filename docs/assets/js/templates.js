@@ -86,7 +86,7 @@ left_sidebar: `
                         {{#border_color}}border-color:{{border_color}};{{/}}
                         {{#border_radius}}border-radius:{{border_radius * scaling.preview_scale_x}}px;{{/}}
                         {{#border_width}}border-width:{{border_width * scaling.preview_scale_x}}px;{{/}}
-                        {{^show}}visibility:hidden;{{/}}
+                        {{^show}}opacity:10%;{{/}}
                     {{/style}}
                     ">
             {{/if}}
@@ -105,7 +105,7 @@ left_sidebar: `
                         {{#border_color}}border-color:{{border_color}};{{/}}
                         {{#border_radius}}border-radius:{{border_radius * scaling.preview_scale_x}}px;{{/}}
                         {{#border_width}}border-width:{{border_width * scaling.preview_scale_x}}px;{{/}}
-                        {{^show}}visibility:hidden;{{/}}
+                        {{^show}}opacity:10%;{{/}}
                         display:flex;
                         {{#text_align}}justify-content:{{text_align}};{{/text_align}}
                         align-items: center;
@@ -144,7 +144,7 @@ active_slide: `
                 {{#border_color}}border-color:{{border_color}};{{/}}
                 {{#border_radius}}border-radius:{{border_radius * scaling.scale_x}}px;{{/}}
                 {{#border_width}}border-width:{{border_width * scaling.scale_x}}px;{{/}}
-                {{^show}}{{#if(mode == 'editor')}}opacity:10%;{{else}}visibility:hidden;{{/if}}{{/}}
+                {{^show}}{{#if(mode == 'editor')}}opacity:10%;{{else}}opacity:0%;{{/if}}{{/}}
             {{/style}}
             ">
     {{/if}}
@@ -166,7 +166,7 @@ active_slide: `
                 {{#border_color}}border-color:{{border_color}};{{/}}
                 {{#border_radius}}border-radius:{{border_radius * scaling.scale_x}}px;{{/}}
                 {{#border_width}}border-width:{{border_width * scaling.scale_x}}px;{{/}}
-                {{^show}}{{#if(mode == 'editor')}}opacity:10%;{{else}}visibility:hidden;{{/if}}{{/}}
+                {{^show}}{{#if(mode == 'editor')}}opacity:10%;{{else}}opacity:0%;{{/if}}{{/}}
                 display:flex;
                 {{#text_align}}justify-content:{{text_align}};{{/text_align}}
                 align-items: center;
