@@ -1,26 +1,3 @@
-function animateDiv(current_element, endX, endY, duration) {
-    startX = current_element.style.left;
-    startY = current_element.style.top;
-    const startTime = new Date().getTime();
-    return new Promise((resolve) => {
-        function step() {
-        const elapsed = new Date().getTime() - startTime;
-        const progress = Math.min(1, elapsed / duration);
-        current_element.style.left = startX + (endX - startX) * progress;
-        current_element.style.top = startY + (endY - startY) * progress;
-        app.update();
-        if (progress < 1) {
-            window.requestAnimationFrame(step);
-        } else {
-            resolve();
-        }
-        }
-        window.requestAnimationFrame(step);
-    }).then(() => {
-        return true;
-    });
-}
-
 class Element{
     constructor(element_id) {
         this.current_element_id = element_id;
@@ -38,9 +15,27 @@ class Element{
         }
         return this;
     }
-    async animate(x,y,seconds=1000) {
-        await animateDiv(this.current_element,x,y,seconds);
-        return this;
+    async animate(endX,endY,seconds=1000) {
+        let startX = this.current_element.style.left;
+        let startY = this.current_element.style.top;
+        let current_element = this.current_element;
+        const startTime = new Date().getTime();
+        return new Promise((resolve) => {
+            function step() {
+                const elapsed = new Date().getTime() - startTime;
+                const progress = Math.min(1, elapsed / seconds);
+                current_element.style.left = startX + (endX - startX) * progress;
+                current_element.style.top = startY + (endY - startY) * progress;
+                app.update();
+                console.log('x: '+current_element.style.left+',y: '+current_element.style.top);
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                } else {
+                    resolve();
+                }
+            }
+            window.requestAnimationFrame(step);
+        });
     }
     move(x,y) {
         this.current_element.style.top = y;
@@ -82,7 +77,10 @@ window.hs = {
         let current_slide = new Slide(element_id);
         return current_slide;
     },
-    state:{}
+    state:{},
+    async sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
 }
 
 app.click('.clickable',function(e) {
