@@ -118,3 +118,19 @@ body {
   white-space: pre;
   height:200px !important;
 }
+
+.gravatar {
+  border-radius:4px;
+  height:36px;
+  width:36px;
+  margin:-10px 5px -8px 0;
+  border:solid 1px #ddd;
+}
+
+body.login {
+  padding-top: 50px;
+}
+
+.navbar-brand{
+  width: 200px;
+}
