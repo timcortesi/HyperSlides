@@ -6,4 +6,6 @@ HyperSlides is inteded for use by children who have experience building slidesho
 
 [Try It Here!](https://hyperslides.digitalsoup.org)
 
+[![Laravel Forge Site Deployment Status](https://img.shields.io/endpoint?url=https%3A%2F%2Fforge.laravel.com%2Fsite-badges%2F902541e2-67ba-4f44-9f87-9734459a7b68%3Fdate%3D1&style=flat)](https://forge.laravel.com)
+
 ![Screenshot](https://timcortesi.github.io/HyperSlides/screenshot.png)
